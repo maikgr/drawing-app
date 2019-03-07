@@ -10,7 +10,6 @@ namespace Drawing {
         static void Main(string[] input) {
             IContainer container = ModuleLoader.LoadModule();
             ILifetimeScope scope = container.BeginLifetimeScope();
-            ICanvas canvas = scope.Resolve<ICanvas>();
             IEnumerable<ICommandModule<ICanvas>> commands = scope.Resolve<IEnumerable<ICommandModule<ICanvas>>>();
             IDictionary<string, ICommandModule<ICanvas>> commandMap = new Dictionary<string, ICommandModule<ICanvas>>();
             
@@ -27,7 +26,7 @@ namespace Drawing {
                 }
 
                 if (!commandMap.ContainsKey(args[0])) {
-                    Console.WriteLine("ERROR: Unrecognized command");
+                    Console.WriteLine("ERROR: Unrecognized command " + args[0]);
                     foreach(ICommandModule<ICanvas> command in commands) {
                         Console.WriteLine(command.Command + " " + string.Join(" ", command.Parameters));
                         Console.WriteLine("\t" + command.Description);
@@ -43,7 +42,7 @@ namespace Drawing {
                             Console.WriteLine($"Command syntax: {command.Command} {string.Join(" ", command.Parameters)}");
                         }
                         else {
-                            command.Execute(canvas, param);
+                            ICanvas canvas = command.Execute(param);
                             canvas.Render();
                         }
                     }

@@ -2,26 +2,30 @@
 using System.Collections.Generic;
 
 namespace Drawing.Modules {
-    public class CanvasBucketCommandModule : ICommandModule<ICanvas> {
-        public string Command {
+    public class CanvasBucketCommandModule : CanvasCommandModule {
+        public override string Command {
             get {
                 return "B";
             }
         }
 
-        public string[] Parameters {
+        public override string[] Parameters {
             get {
                 return new string[] { "x", "y", "c" };
             }
         }
 
-        public string Description {
+        public override string Description {
             get {
                 return "Fill the entire area connected to (x,y) with \"colour\" c.";
             }
         }
 
-        public ICanvas Execute(ICanvas data, string[] args) {
+        public CanvasBucketCommandModule(ICanvas canvas) : base(canvas) {
+
+        }
+
+        public override ICanvas Execute(string[] args) {
             if (!int.TryParse(args[0], out int x) || !int.TryParse(args[1], out int y)) {
                 throw new ArgumentException("Coordinates must be numbers!");
             }

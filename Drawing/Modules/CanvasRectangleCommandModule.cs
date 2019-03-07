@@ -1,26 +1,30 @@
 ﻿using System;
 
 namespace Drawing.Modules {
-    public class CanvasRectangleCommandModule : ICommandModule<ICanvas> {
-        public string Command {
+    public class CanvasRectangleCommandModule : CanvasCommandModule {
+        public override string Command {
             get {
                 return "R";
             }
         }
 
-        public string[] Parameters {
+        public override string[] Parameters {
             get {
                 return new string[] { "x1", "y1", "x2", "y2" };
             }
         }
 
-        public string Description {
+        public override string Description {
             get {
                 return "Create a new rectangle, whose upper left corner is (x1,y1) and lower right corner is (x2, y2)";
             }
         }
 
-        public ICanvas Execute(ICanvas data, string[] args) {
+        public CanvasRectangleCommandModule(ICanvas canvas) : base(canvas) {
+
+        }
+
+        public override ICanvas Execute(string[] args) {
             if (!int.TryParse(args[0], out int x1) || !int.TryParse(args[1], out int y1)
                 || !int.TryParse(args[2], out int x2) || !int.TryParse(args[3], out int y2)) {
                 throw new ArgumentException("Coordinates must be numbers!");

@@ -1,26 +1,30 @@
 ﻿using System;
 
 namespace Drawing.Modules {
-    public class CanvasLineCommandModule : ICommandModule<ICanvas> {
-        public string Command {
+    public class CanvasLineCommandModule : CanvasCommandModule {
+        public override string Command {
             get {
                 return "L";
             }
         }
 
-        public string[] Parameters {
+        public override string[] Parameters {
             get {
                 return new string[] { "x1", "y1", "x2", "y2" };
             }
         }
 
-        public string Description {
+        public override string Description {
             get {
                 return "Create a new line from (x1,y1) to (x2,y2)";
             }
         }
 
-        public ICanvas Execute(ICanvas data, string[] args) {
+        public CanvasLineCommandModule(ICanvas canvas) : base(canvas) {
+
+        }
+
+        public override ICanvas Execute(string[] args) {
             if (!int.TryParse(args[0], out int x1) || !int.TryParse(args[1], out int y1)
                 || !int.TryParse(args[2], out int x2) || !int.TryParse(args[3], out int y2)) {
                 throw new ArgumentException("Coordinates must be numbers!");

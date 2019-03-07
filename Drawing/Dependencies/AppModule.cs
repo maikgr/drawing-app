@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Drawing.Modules;
 
 namespace Drawing.Dependencies {
     public class AppModule : Module {
@@ -6,6 +7,10 @@ namespace Drawing.Dependencies {
             builder.RegisterAssemblyTypes(typeof(AppModule).Assembly)
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<ConsoleCanvas>()
+                .As<ICanvas>()
+                .SingleInstance();
 
             base.Load(builder);
         }
