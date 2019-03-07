@@ -34,8 +34,10 @@ namespace Drawing.Modules {
                 throw new ArgumentException("Canvas is not created yet");
             }
 
-            int width = data.Canvas.GetLength(0);
-            int height = data.Canvas.GetLength(1);
+            int width = data.Canvas.GetLength(1);
+            int height = data.Canvas.GetLength(0);
+            x -= 1;
+            y -= 1;
 
             if (x < 0 || y < 0 || x >= width || y >= height) {
                 throw new ArgumentException("Cannot fill outside of canvas area");
@@ -48,9 +50,9 @@ namespace Drawing.Modules {
             return Fill(data, x, y, c);
         }
 
-        private ICanvas Fill(ICanvas data, int y, int x, char c) {
-            int width = data.Canvas.GetLength(0);
-            int height = data.Canvas.GetLength(1);
+        private ICanvas Fill(ICanvas data, int x, int y, char c) {
+            int width = data.Canvas.GetLength(1);
+            int height = data.Canvas.GetLength(0);
             int targetCurrentColor = data.Canvas[y, x];
             Queue<(int, int)> nodeQueue = new Queue<(int, int)>();
             nodeQueue.Enqueue((x, y));

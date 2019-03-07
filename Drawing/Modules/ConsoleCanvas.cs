@@ -9,8 +9,8 @@ namespace Drawing.Modules {
                 throw new ArgumentException("Canvas is not created yet");
             }
 
-            int width = Canvas.GetLength(0);
-            int height = Canvas.GetLength(1);
+            int width = Canvas.GetLength(1);
+            int height = Canvas.GetLength(0);
 
             for (int y = -1; y <= height; ++y) {
                 for (int x = -1; x <= width; ++x) {

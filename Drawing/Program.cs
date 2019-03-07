@@ -43,7 +43,8 @@ namespace Drawing {
                             Console.WriteLine($"Command syntax: {command.Command} {string.Join(" ", command.Parameters)}");
                         }
                         else {
-                            command.Execute(canvas, args);
+                            command.Execute(canvas, param);
+                            canvas.Render();
                         }
                     }
                     catch (Exception e) {

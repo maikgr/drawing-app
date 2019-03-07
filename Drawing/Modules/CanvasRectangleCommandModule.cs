@@ -21,8 +21,8 @@ namespace Drawing.Modules {
         }
 
         public ICanvas Execute(ICanvas data, string[] args) {
-            if (int.TryParse(args[0], out int x1) || int.TryParse(args[1], out int y1)
-                || int.TryParse(args[2], out int x2) || int.TryParse(args[3], out int y2)) {
+            if (!int.TryParse(args[0], out int x1) || !int.TryParse(args[1], out int y1)
+                || !int.TryParse(args[2], out int x2) || !int.TryParse(args[3], out int y2)) {
                 throw new ArgumentException("Coordinates must be numbers!");
             }
 
@@ -30,8 +30,12 @@ namespace Drawing.Modules {
                 throw new ArgumentException("Canvas is not created yet");
             }
 
-            int width = data.Canvas.GetLength(0);
-            int height = data.Canvas.GetLength(1);
+            int width = data.Canvas.GetLength(1);
+            int height = data.Canvas.GetLength(0);
+            x1 -= 1;
+            x2 -= 1;
+            y1 -= 1;
+            y2 -= 1;
 
             if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0 ||
                 x1 >= width || y1 >= height || x2 >= width || y2 >= height) {
