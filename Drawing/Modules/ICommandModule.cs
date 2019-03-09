@@ -19,9 +19,8 @@
         /// <summary>
         /// Execute this module
         /// </summary>
-        /// <param name="data">The data to execute against</param>
-        /// <param name="args">The arguemnts or parameters given to this module</param>
-        /// <returns>The processed data</returns>
+        /// <param name="args">The arguments or parameters given to this module</param>
+        /// <returns>The data result</returns>
         T Execute(string[] args);
     }
 }
